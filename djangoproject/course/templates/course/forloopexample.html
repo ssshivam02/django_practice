@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django</title>
+    <style>body{
+    background-color: black;
+    color: seashell;
+    }
+    </style>
+</head>
+<body>
+    <ul>
+        {% for name in names %}
+        <li>{{name}}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <ul>
+        {% for name in names reversed%}
+        <li>{{name}}</li>
+        {% empty %}
+        <h3> Yaha kuch nhi hai list lol!!!</h3>
+        {% endfor %}
+    </ul>
+    <br>
+    <ul>
+        {% for name in names %}
+        <li>{{forloop.counter}} {{name}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

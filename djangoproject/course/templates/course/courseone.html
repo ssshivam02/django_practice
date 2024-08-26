@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    
+    <link rel="stylesheet" href="{% static 'course/css/style.css' %}" />
+    <title>Django</title>
+</head>
+<body>
+    <h1> Hello Django </h1>
+    <h2>{{cname|upper}}</h2>
+    <img src="{% static 'course/images/IMG_20200708_025147_HDR.jpg' %}" alt="mirror">
+    <img src="{% get_static_prefix %}course/images/IMG_20200708_025147_HDR.jpg" alt ="me">
+    <hr>
+    <form action="">
+        <input type="button" value="Click me" onclick="disp_course()">
+    </form>
+    <script src="{% static 'course/js/course.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django</title>
+    <style>body{
+    background-color: black;
+    color: seashell;
+    }
+    </style>
+</head>
+<body>
+    <ul>
+        {% for key, value in students.items %}
+        {{key}} <br>
+        {% for key, value in value.items %}
+        {{forloop.parentloop.counter0}} {{key}} = {{value}} <br>
+        {% endfor %}
+        {% endfor %}
+        
+    </ul>
+</body>
+</html>

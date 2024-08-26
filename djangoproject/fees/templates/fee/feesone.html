@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Django Fee</title>
+    <link rel="stylesheet" href="{% static 'fee/css/style.css' %}" />
+    
+</head>
+<body>
+    <h1>{{dt|date:'SHORT_DATE_FORMAT'}} </h1>
+    <img src="{% static 'fee/images/IMG_20200708_025147_HDR.jpg' %}" alt="mirror">
+    <img src="{% get_static_prefix %}fee/images/IMG_20200708_025147_HDR.jpg" alt ="me">
+    <hr>
+    <form action="">
+        <input type="button" value="Click me" onclick="disp_fee()">
+    </form>
+    <script src="{% static 'fee/js/fee.js' %}"></script>
+    
+</body>
+</html>

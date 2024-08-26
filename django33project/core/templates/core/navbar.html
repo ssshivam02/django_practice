@@ -1,0 +1,14 @@
+<nav>
+    <ul>
+        <!-- Easy way to use hyerlink -->
+        <!-- <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/course/django">Django Course</a></li> -->
+
+        <!--Using url tag-->
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'course_django' %}">Django Course</a></li>
+        
+    </ul>
+</nav>
