@@ -1,4 +1,4 @@
-"""messagesframework71v2608 URL Configuration
+"""registrationfor74v260824 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from enroll.views import registration
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('registration/',registration,name="registration")
 ]
