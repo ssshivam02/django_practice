@@ -1,4 +1,4 @@
-"""registrationfor74v260824 URL Configuration
+"""authenticationForm75v2708 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from enroll.views import sign_up
+from enroll.views import change_without_password,change_password,sign_up,user_login,user_profile,user_logout
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/', sign_up)
+    path('signup/', sign_up, name='signup'),
+    path('login/', user_login, name='login'),
+    path('profile/', user_profile, name='profile'),
+    path('logout/',user_logout, name = 'logout'),
+    path('changepassword/', change_password, name="changepass"),
+    path('changepass1/',change_without_password,name='changepass1')
 ]
