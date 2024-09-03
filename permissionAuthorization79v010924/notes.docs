@@ -1,0 +1,28 @@
+Permissions and Authorization
+
+Django comes with a built-in permissions system. It provides a way to assign permissions to specific users and groups of users.
+
+Permissions:- View or change or add or delete
+
+myuser.groups.set([group_list])
+myuser.groups.add(group,group)
+myuser.groups.remove(group,group)
+myuser.groups.clear()
+myuser.user_permissions.set([permission_list])
+myuser.user_permissions.add(permission, permission,)
+myuser.user_permissions.remove(permission, permission)
+myuser.user_permissions.clear()
+
+Permissions names follow a very specific naming convention: appname.action_modelname
+Example:- enroll.delete_blog
+
+When a model is created, django will automatically create four default permissions for the following actions.
+
+##### perms Template Variable
+
+The currently logged-in user's permissions are stored in the template variable {{ perms }}. This is an instance of django.contrib.auth.context_processors.PermWrapper, which is a template-friendly proxy of permissions.
+
+Example:-
+{% if perms.enroll.delete_blog %}
+<input type="button" value="Delete"><br>
+{% endif %}

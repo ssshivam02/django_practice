@@ -1,0 +1,95 @@
+### Cookies
+A cookie is a small piece of text data set by Web server that resided on the client's machine.
+Once it's been set, the client automatically returns the cookie to the web sever with each request that it makes.
+This allows the server to place value it wishes to 'remember' in the cookie, and have access to them when creating a response.
+
+
+Django Cookies
+===============
+### Setting Cookies
+To set a cookie in Django, you can use the `set_cookie` method of the `HttpResponse
+object.
+HttpResponse.COOKIES - A dictionary containing all cookies, Keys and values are strings.
+
+set_cookie() - set_cookie() is used to set/create/sent cookies.
+HttpResponse.set_cookie(key, value, max_age=None, expires=None, path='/', domain=None,secure = True)
+
+Example:-
+==================
+set_cookie("name","sonam")
+key - This is the name of the cookie.
+value - This sets the value of cookie. This value is stored on the clients computer.
+name and value are required to set cookie.
+max_age - This is the maximum age of the cookie in seconds. If set to None, the
+cookie becomes a session cookie.
+expires - This is the date and time at which the cookie expires. If set to None, the
+cookie becomes a session cookie.
+
+Example:- 
+set_cookie("name","shivam", max_age=60*60*24*10)   //10 days
+
+set_cookie("name","shivam", expires=datetime.utcnow() + timedelta(days=2)) //2 days from now.
+
+path- Path can be /(root) or /mydir(directory).
+Example:- set_cookie("name","shivam","/")
+set_cookie("name","shivam","/home")
+
+domain - use domain if you want to set a cross-domain cookie. For example, domain="example.com"
+will set a cookie that is readable by the domains www.example.com, blog.example.com etc. otherwise, a cookie wiil only be readable by the domain that set it.
+
+Example:-
+set_cookie("name",'shivam', domain='geekyshows.com')
+follow site can access name cookie.
+note.geekyshows.com
+code.geekyshows.com
+
+Example: of subdomain
+set_cookie('name','shivam','code.geekyshows.com')
+
+only code.geekyshows.com can access cookie.
+
+secure - Cookie to only be transmitted over secure protocol as https.When set to True, the cookie will only be set if a secure connections exists.
+
+Reading/Accessing cookie
+==========================
+To read/access cookie in django, you can use the `COOKIES` dictionary of the `
+syntax:- request.COOKIES['key'];
+example:- request.COOKIES['name'];
+
+request.COOKIES.get('key',default)
+
+Deleting Cookies
+==================
+HttpResponse.delete_cookie(key, path="/", domain= None)- This method is used to delete the cookie based on given key with same domain and path, if they were set, otherwise the cookie may not be deleted.
+
+Example:- delete_cookie('name')
+
+Creating Signed Cookies
+=======================
+HttpResponse.set_signed_cookie(key,value,salt="", max_age=None, expires=None,path='/',domain= None, secure= False, httponly=False, samesite=None)
+
+Its similar to set_cookie, but cryptographic signing the cookie before setting it. Using in conjuction with HttpRequest.get_signed_cookie().
+
+You can use the optional salt arugument for added key strength, but you will need to remember to pass it to the corresponding HttpRequest.get_signed_cookie() call.
+
+Getting signed cookies
+=====================
+HttpRequest.get_signed_cookie(key, salt="", max_age=None, default=None)
+ 
+The optional salt arugument can be used to provide extra protection against brute force attacks on your secret key. If sppplied, the max_Age arugment will be checked against the signed timestamp attached to the cookie value to enusre the cookie is not older than max_age seconds.
+
+Cookies Security Issues
+======================
+1. Can misuse Client details
+2. Can track user
+3. Can be used for session hijacking
+4. Can be used for CSRF attacks
+5. Client can delete cookies
+6. Client can Manipulate cookies.
+
+Cookies limitation
+======================
+1. Limited to 4KB
+2. Limited to 20 cookies per domain
+3. Cookies can be stored in browser and server
+4. It is sent with each request.
