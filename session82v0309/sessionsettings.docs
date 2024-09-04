@@ -1,0 +1,42 @@
+Session Settings
+================
+SESSION_CACHE_ALIAS - If you're using cache-based session storage, this selects the cache to use. Default:'default'
+
+SESSION_COOKIE_AGE - The age of session cookies, in seconds. Default: 1209600(2 weeks, in seconds)
+
+SESSION_COOKIE_DOMAIN - The domain to use for session cookies. Set this to a string such as "example.com" for cross-domain cookies, or use None for a standard domain cookie.
+
+SESSION_COOKIE_HTTPONLY - Whether to use HttpOnly flag on the session cookie. If this is set to True, client-side JavaScript will not be able to access the session cookie.
+
+SESSION_COOKIE_PATH - The path set on the session cookie. This should either match the URL path of your Django installation or be parent of that path.
+This is useful if you have multiple Django instances running hostname. They can use different cookie paths, and each instance will only see its own session Cookie. Defauly:'/'
+
+SESSION_COOKIE_SAMESITE- The value of the SameSite flag on the session cookie. This flag prevents the cookie from being sent in cross-site requests thus preventing CSRF attacks and making some methods of stealing session cookie impossible.
+
+Possible values for the setting are:
+'Strict': prevents the cookie from being sent bt the browser to the target site in all cross-site browsing context, even when following a regular link.
+
+For example, for a Github-like website this would mean that is a logged-in user follows a link to a private GitHub project posted on a corporate discussion forum or email,Github will not receive the session cookie and the user won't be able to access the project. A bank website, however, most like doesn't want to allow any transactional pages to be linked from external sites so sites so the 'Strict' flag would be appropriate.
+
+'Lax' (default): provides a balance between security nad usability for websites that want to maintain user's logged-in session after the user arrives from an external link.
+
+In the Github scenario, the session cookie would be allowed when following a regular link from and external website and be blocked in CSRF-prone request methods(e.g. POST)
+
+SESSION_COOKIE_SECURE- Whether to use a secure cookie for the session cookie. If this is set to True, the cookie will be marked as 'secure', which means browsers may ensure that the cookie is only sent under as HTTPS connection.
+
+SESSION_ENGINE- Controls where django stores session data.
+Possible values are:
+'database': Stores session data in the database.
+'file': Stores session data in a file on disk.
+'cache': Stores session data in the cache.
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE- Whether to expire the session when the user close thier browser. Default:False.
+SESSION_FILE_PATH - If you're using file-based session storage, this sets the directory in which Django will store session data. When the default value(None) is used, Django will use the standard temporary direcctory for the system. Default:None.
+
+SESSION_SAVE_EVERY_REQUEST - Whether to save the session data on every request. If this is False(default), then the session data will only be saved if it has been modified that is, if any of its dictionary values have been assigned or deleted. Empty sessions won't be created, even if this is active. Default:False.
+
+SESSION_SERIALIZER - Full import path of a serializer class to use for serializing session data.
+Included serializers are:
+'django.contrib.sessions.serializers.PickleSerializer'
+Default:'django.contrib.sessions.serializers.JSONSerialier'
+

@@ -1,0 +1,49 @@
+Session
+========
+The session framework lets you store and retrieve arbitrary data on a per-site-visitor basis.
+It is primarily used to store data that might be needed across multiple requests. For example, you might
+It stores data on the server side and abstracts the sending and receiving of cookies. Cookies contain a session ID not the data itself.
+By default, Django stores sessions in your database.
+We need to run migrate command.
+
+For storing session
+====================
+database-backed sessions- If you want to use a database-backed session, you need to add 'django.contrib.sessions' to your INSTALLED_APPS setting.
+Once you have configured your installaton, run manage.py migrate to install the single database table that stores session data.
+
+
+file-based sessions- To use file-based sessions, set the SESSION_ENGINE setting to "django.contrib.sessions.backends.file".
+You need to make sure the directory specified by the SESSION_FILE_PATH setting exists and is writable.
+You might also want tot set the SESSION_FILE_PATH setting(which default to output from tempfile.gettempdir(), most likely /tmp) to control where django stores session files. Bed sure to check that your Web server has permissions to read and write to this location.
+
+cookie-based sessions- To use cookies-based sessions, set the SESSION_ENGINE setting to "django.contrib.sessions.backends.signed_cookies". The session data will be stored using Django's tool for cryptographic signing and the SECRET_KEY settting.
+
+cached sesion - For better performace, you may want to use a cache-based session backed. To store session data using Django's cache system, you'll first need to make you've configured your cache.
+
+
+
+Using sessions un views
+=====================
+To use sessions in views, you need to import the session framework and use the session object to store
+and retrieve data.
+When Session.Middleware is activated, each HttpRequest object, the first argument to any Django view function will have a session attribute, which is a dictionary-like object.
+You can read it and write to reuest.session at any point in your view.
+
+Set item
+=========
+request.session['key']='value'
+
+Get item
+==========
+returned_value= request.session['key']
+
+Delete item
+=============
+request.session.pop('key')
+del request.session['key']
+this raises KeyError if the given key isn't already in the session.
+
+Contains
+==========  
+request.session.contains('key')
+'key' in request.sesion
