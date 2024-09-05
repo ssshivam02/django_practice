@@ -1,0 +1,21 @@
+Template Fragment Caching
+=========================
+This gives you control what to cache.
+{% load cache %} - This gives access to cache tag in template.
+{% cache %} - This template tag caches the contents of the block for a given amount of time.
+
+Syntax:-
+{% cache [name] [timeout] %} ......... {% endcache name %}
+{% cache "my_cache" 60 %}
+{% cache timeout name variable using="" %} ...{% endcache name %}
+
+Timeout - The cache timeout, in seconds. The fragment is cached forever if timeout is None. It can be a template variable, as long as the template varible resolves to and integer value.
+Name - The name to give the cache fragment. The name will be taken as is do not use a variable.
+Variable- This can be a variable with or without filters. This will cache multiple copies of fragment depending on some dynamic data that apppears inside the fragment.
+using - The cache tag will try to use the given cache. If no such cache exists, it will fall back to using the default cache. You may select an alternate cache backend to use with the using keyword argument, which must be the last argument to the tag.
+
+Example:-
+{% load cache %}
+{% cache 60 sidebar request.user.username using="localcache" %}
+..... sidebar for logged in user ............
+{% endcache sidebar %}

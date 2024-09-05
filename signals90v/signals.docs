@@ -1,0 +1,72 @@
+                  Signals
+                --------------
+
+The signals are utitities that allow us to associate events with actions.
+Signals allow certain senders to notify a set of receivers that some action has taken place.
+-> Login and Logout Signals
+-> Model Signals
+-> Management Signals
+-> Request/Response Signals
+-> Test Signals
+-> Database Wrappers.
+
+Three imporatant part of Signals
+Sender - Who will send Signals
+Signal - Signal
+Receiver - Who will receive Signal
+
+Receiver Function- This function takes a sender argument, along with wild card keyword arguments(**kwargs); all signal handlers must take these arguments. A receiver can be any Python function or method.
+def receiver_func(sender, request, user, **kwargs):
+    pass
+
+Connecting/Registering Receiver Function - There are two ways you ca connect a receiver to a signal:-
+>Manual Connect Route
+>Decorator
+
+Manual Connect Route - To receive a signal, register a receiver function using the Signal.connect() method. The receiver function is called when the signal is sent. All of the signal's receiver functions are called one at a time, in the order they were registered.
+
+Signal.connect(receiver_func, sender= None, weak= True, dispatch_uid =None)
+Where,
+receiver_func - The callback function which will be connected to signal.
+sender - The sender of the signal. If None, the signal will be sent to all receivers.
+weak - If True, the receiver will be weakly referenced. This means that the receiver will not
+prevent the sender from being garbage collected.
+dispatch_uid - A unique identifier for a signal receiver in cases where duplicate signals may be sent.
+
+Decorator - @receiver(signal or list of signal, sender)
+def receiver_func(request):
+
+
+Built-in Signals
+----------------
+Login and Logout Signals - The auth framework uses the following signals that can be used for notification when a user logs in or out.
+
+django.contrib.auth.signals
+> user_logged_in(sender, user, request, **kwargs) - Sent when a user logs in successfully.
+sender - The class of the user that just logged in.
+user - The user that just logged in.
+request - The request that was made to log in.
+
+> user_logged_out(sender, request, user) - Sent when the logout method is called.
+sender - The class of the user that just logged out.
+request - The request that was made to log out.
+user - The user that just logged out.
+
+> user_login_failed(sender, credentials, request) - Sent when the user failed to login successfully.
+sender - The class of the user that tried to log in.
+credentials - The credentials that were used to try to log in.
+request - The request that was made to log in.
+
+Model Signals- A set of signals sent by the model system.
+--------------
+
+django.db.models.signals
+pre_int(sender, args, kwargs) - Whenever you instantiate a Django model, this signal is sent at beginning of the model's __init__() method.
+
+sender - The model class that just had an instance created.
+args - The arguments that were passed to the model's __init__() method.
+kwargs - The keyword arguments that were passed to the model's __init__() method.
+
+post_init(sender, instance)- Like pre_inti, but this one is sent when the__init__() method finishes.
+sender - The model class that just had an instance created.
+instance - The instance that was created.

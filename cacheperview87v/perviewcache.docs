@@ -1,0 +1,34 @@
+The per-view cache
+==================
+The per-view cache- A more granular way to use the caching framework is by caching the outut of individual view. 
+django.views.decorators.cache defines a cache_page decorator that will automatically cache the view's response. If multiple URLS point at the same view, each URL will be cache separately.
+
+from django.views.decorators.cache import cache_page
+
+@cache_page(timeout,cache, key_prefix)
+def my_view(request):
+
+@cache_page(60, cache="some_cache", key_prefix="some_key")
+def home(request):
+
+timeout- The cache timeout, in seconds.
+cache - This directs the decorator to use a specific cache(from your CACHES setting) when caching view results. By default, the default cache will be used.
+key_prefix - This is a string that will be prepended to the cache key. This can be
+useful if you have multiple instances of your application running behind a load balancer.
+
+In urls.py file
+-----------------
+Specifying per-view cache in the URLconf
+----------------------------------------
+from django.views.decorators..cache import cache_page
+
+urlpatterns=[
+    path('home/',cache_page(60)(home)),
+    path('route/', cache_page(timeout,cache,key_prefix)(view_function))
+    ]
+
+urlpatterns=[
+    path('home/',cache_page(60)(home), name="home"),
+]
+
+setting same as per site caching
