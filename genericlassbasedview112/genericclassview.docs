@@ -1,0 +1,17 @@
+Generic Class Based View
+------------------------
+Django's Generic views are built off of those base views, and were developed as a sshortcut for common usage patterns such as displayng the details of an object.
+They take certain common idioms and patterns found in view development and abstract them so that you can quickly write common views of data without havig to repeat yourself.
+
+Most generic Views require the queryset key, which is a QuerySet instance.
+
+> Display View - ListView, DetailView
+> Editing View - FormView, CreateView, UpdateView, DeleteView
+> Data Views - ArchiveIndexView, YearArchiveView, MonthArchiveView, WeekArchiveView, DayArchiveView, TodayArchiveView, DateDeatailView
+
+ListView
+---------
+
+Django.views.generic.list.ListView
+A page representing a list of objects.
+While this view is executing, self.object_list will contain the list of objects (usually, but not necessarily a queryset) that the view is operating upon.

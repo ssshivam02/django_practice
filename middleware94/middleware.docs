@@ -1,0 +1,47 @@
+Middleware is a framework of hooks into Django's request/response processing.
+
+It's a light, low-level "plugin" system for globally altering Django's input or ouput. Each middleware component is responsible for doing some specific function.
+
+
+                Function Based Middleware
+----------------------------------------------------------------
+A middleware factory is a callable that takes a get_response callable and returns a middleware.
+A middleware is a callable that takes a request and returns a response, just like a view.
+def my_middleware(get_response):
+# one-time configuration and initialization.
+   def my_fuction(Request):
+      # code to executed for each request before the view are called.
+      response = get_response(request)
+      # code to executed for each request after the view are called.
+      return response
+    return my_fuction
+    
+get_response()
+The get_response callable provided by Django might be the actual view(if this is the last listed middlewre)  or it might be the next middleware in the chain.
+Middleware can live anywhere in path.
+
+To activate a middleware component, add it to the MIDDLEWARE list in your Django settings.
+Order need to maintain.
+
+Eg: MIDDLEWARE=[
+    'blog.middlewares.my_middleware'
+    'appname.middlewarefile.functionname.
+]
+
+Class Based Middleware
+---------------------------
+class MyMiddleware:
+ def __init__(self, get_response):
+    self.get_response= get_response
+    # One-time configuration and initialization
+ def __call__(self, request):
+    # code to be executed for each request before the view (and later middleware) are called.
+    response = self.get_response(request)
+    @ code to be executed for each request/response after the view is called.
+    return response
+
+activate middleware
+---------------------------
+MIDDLEWARE=[
+    'blog.middlewares.MyMiddleware',
+]

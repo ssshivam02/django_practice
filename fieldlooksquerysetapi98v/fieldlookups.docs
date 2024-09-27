@@ -1,0 +1,68 @@
+                    Field Lookups
+                    -------------
+Field lookups are how you specify the meet of an SQL Where clause.
+
+They're specified as keyboard arugments to the QuerySet methods filter(), exclude() and get().
+
+If you pass an invalid keyword arugment, a lookup function will raise TypeError.
+
+Syntax:- field__lookuptype=value.
+
+Example:- Student.objects.filter(marks__lt='50') # lt means less than.
+Select * from myapp_student where marks<'50';
+
+The field specified in a lookup has to be the name of a model field.
+The lookup type is a string that specifies the type of lookup to be performed.
+The value is the value to be looked up.
+
+
+1. exact - Exact match. If the value provided for comparison is None, it will be interpreted as an SQL NULL. This is case sensitive.
+Example:- Student.objects.get(name__exact='shivam')
+2. iexact - Case-insensitive exact match.
+Student.objects.get(name__i exact='Shivam')
+3. contains - Contains the value. This is case sensitive.
+4. icontains- Case-insensitive containment test.
+5. in - In a given iterable; often a list, tuple, or queryset. It's not a common use case, but strings(being iterables) are accepted.
+Example:- Student.objects.filter(id_in=[1,5,7])
+6. gt :- Greater than.
+Example:- Student.objects.filter(marks__gt='50')
+7. gte :- Greater than or equal to.
+Example:- Student.objects.filter(marks__gte='50')
+8. lt :- Less than.
+Example:- Student.objects.filter(marks__lt='50')
+9. lte :- Less than or equal to.
+Example:- Student.objects.filter(marks__lte='50')
+10. startswith - Starts with the given value. This is case sensitive.
+Example:- Student.objects.filter(name__startswith='Sh')
+11. endswith - Ends with the given value. This is case sensitive.
+Example:- Student.objects.filter(name__endswith='m')
+12. isnull - Is null.
+Example:- Student.objects.filter(marks__isnull=True)
+13. istartwith - Case-insensitive starts-with.
+Example:- Student.objects.filter(name__istartwith='Sh')
+14. iendswith - Case-insensitive ends-with.
+Example:- Student.objects.filter(name__iendswith='m')
+15. range - Range of values. It can be used with both fields and foreign keys.
+Example:- Student.objects.filter(marks__range=(40,60))
+16. date:- For datetime fields, casts the value as date. Allows chaining additional fiels lookups. Takes a date value.
+Example:- Student.objects.filter(date_of_birth__date='1990-01-01')
+17. year:- For datetime fields, casts the value as year. Allows chaining additional field lookups
+Example:- Student.objects.filter(date_of_birth__year='1990')
+Student.objects.filter(date_of_birth__year__gt='1990')
+18. month:- For datetime fields, casts the value as month. Allows chaining additional field lookups
+Example:- Student.objects.filter(date_of_birth__month='01')
+ Student.objects.filter(date_of_birth__month__gt='01')
+ 19. week:- For datetime fields, casts the value as week. Allows chaining additional field lookups
+ Example:- Student.objects.filter(date_of_birth__week='01')
+ Student.objects.filter(date_of_birth__week__day='01') # sunday
+ Student.objects.filter(date_of_birth__week__gt='01')
+ 20. day:- For datetime fields, casts the value as day. Allows chaining additional field lookups
+ Example:- Student.objects.filter(date_of_birth__day='01')
+ Student.objects.filter(date_of_birth__day__gt='01')
+ 21. regex
+ For fields that are of type CharField, TextField, or other text fields, you can use regular
+ expressions to filter the data. The lookup type is 'regex' and the value is a regular
+ expression pattern. The pattern can include groups, which can be accessed using the
+ group() method of the match object.
+ Example:- Student.objects.filter(name__regex='^Sh.*')
+ 22. iregex

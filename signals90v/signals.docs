@@ -70,3 +70,52 @@ kwargs - The keyword arguments that were passed to the model's __init__() method
 post_init(sender, instance)- Like pre_inti, but this one is sent when the__init__() method finishes.
 sender - The model class that just had an instance created.
 instance - The instance that was created.
+
+pre_save(sender, instance, raw, using, update_fields) - This is sent at the beginning of a model's save() method.
+sender = The model class
+instance - the actual instance being saved.
+raw - A boolean; True if the model is saved exactly as presented (i.e. when loading a fixture). One should not query/modify other records in the database as the database might not be in a consistent state yet.
+using - The database alias being used to save the model.
+update_fields - The set of fields to update as passed to Model.save(), or None if update_fields wasn't passed to save().
+
+post_save(sender, instance, raw, using, update_fields) - Like pre_save, but sent
+at the end of the save() method.
+created -A boolean;True if a new record was created. False means update data.
+
+pre_delete(sender, insatnce, using)- Sent at the beginning of a model's delete() method and a queryset's delete() method.
+
+post_delete(sender, instance, using)- Like pre_delete, but sent at the end of a model's delete() method and a queryset's delete() method.
+
+m2m_changed(sender)
+
+class_prepared(sender)
+
+Request/Response Signals - Signals sent by the core framework when processing a request.
+django.core.signals
+
+request_started(sender, environ)- Sent when Django begins processing an HTTP request.
+sender - The handler class - e.g. django.core.handler.wsgi.WsgiHandler - that handled the request.
+environ - The environ dictionary provided to the request.
+request_finished(sender)- Sent when Django finishes processing an HTTP request.
+sender - The handler class - e.g. django.core.handler.wsgi.WsgiHandler - that handled
+the request.
+
+got_request_exception(sender, request) - This signal is sent whenever Django encounters an exception while processing an incoming HTTP request.
+sender - The handler class - Unused(Always none)
+request - The HttpReuest object.
+
+Management Signals - Signals sent by django-admin
+django.db.models.signals
+
+pre_migarte(sender, app_config, verbosity, interactive, using, plan, apps)
+sender - The app config that is being migrated.
+app_config - The app config that is being migrated.
+verbosity - The verbosity level of the migration process.
+
+
+post_migrate(Sender, app_config, verbosity, interactive, using, plan, apps):
+
+Database Wrappers- Signals sent by the database wrapper when a database connection is initiated.
+django.db.backends.signals
+connection_Created - sent when the database wrapper makes the initial connection to the databse. This is particularly useful if you'd like to send any psot connection commands to the SQL backend.
+sender and connection

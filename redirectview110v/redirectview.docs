@@ -1,0 +1,29 @@
+                     Redirect View
+django.views.generic.base.RedirectView
+It redirects to a given URL.
+### Redirect View
+class RedirectView(generic.View):
+"""A view that redirects to a given URL."""
+def get_redirect_url(self, *args, **kwargs):
+"""Return the URL to redirect to. The URL can be determined by a
+keyword argument named "permanent" and/or "query_string".
+If "permanent" is True, a 301 redirect is performed. If
+"query_string" is True, the query string from the original URL
+is preserved in the redirect URL.
+"""
+url = self.get_redirect_url(*args, **kwargs)
+# Redirect to the given URL.
+return HttpResponseRedirect(url)
+
+
+# Attributes: In RedirectView
+URL- The Url to redirect to, as a string, or None to raise a 410(Gone) HTTP Error.
+
+pattern_name- The name of the URL pattern to redirect to. Reversing will be done using the same args and kwargs as are passed in for this view.
+
+permanent- Whether the redirect should be permanent. The only difference here is the HTTP status code returned. If True, then the redirect will use status code 301.
+If False, then the redirect will use status code 302. By default, permanent is False.
+
+query_string - Whether to pass along the GET query string to the new location. If True, then the query string is appened to URL. If False,then the query string is discarded. By default, query_string is False.
+
+get_redirect_url(*args, **kwargs)- It constructs the target URL for redirection.

@@ -1,0 +1,10 @@
+                            TemplateView
+                            ------------
+django.views,generic.base.TemplateView
+It renders a given template, with the context containing parameters captured in the URL.
+This view inherits methods, and attributes from the following  views:
+> django.views.generic.base.TemplateResponseMixin
+> django.views.generic.base.ContextMixin
+> django.views.generic.base.View
+
+class TemplateView(TemplateResponseMixin, ContextMixin, View):
